@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../redux/actions/authActions"; // À créer
+import { loginUser } from "../redux/actions/authActions";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
