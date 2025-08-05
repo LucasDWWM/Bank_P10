@@ -1,0 +1,74 @@
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUsername } from "../redux/actions/authActions";
+import { logout } from "../redux/reducers/authReducer";
+import { Link, useNavigate } from "react-router-dom";
+
+function ProfilePage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+
+  const [editMode, setEditMode] = useState(false);
+  const [newUsername, setNewUsername] = useState(user?.userName || "");
+
+  const handleEdit = () => setEditMode(true);
+
+  const handleSave = async () => {
+    await dispatch(updateUsername(newUsername));
+    setEditMode(false);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
+  return (
+    <>
+      <nav className="main-nav">
+        <Link className="main-nav-logo" to="/">
+          <img className="main-nav-logo-image" src="./img/argentBankLogo.png" alt="Argent Bank Logo" />
+          <h1 className="sr-only">Argent Bank</h1>
+        </Link>
+        <div>
+          <Link className="main-nav-item" to="/profile">
+            <i className="fa fa-user-circle"></i>
+            {user?.userName}
+          </Link>
+          <button className="main-nav-item" onClick={handleLogout}>
+            <i className="fa fa-sign-out"></i>
+            Sign Out
+          </button>
+        </div>
+      </nav>
+
+      <main className="main bg-dark">
+        <div className="header">
+          {editMode ? (
+            <>
+              <input value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
+              <button onClick={handleSave}>Save</button>
+              <button onClick={() => setEditMode(false)}>Cancel</button>
+            </>
+          ) : (
+            <>
+              <h1>
+                Welcome back<br />{user?.firstName} {user?.lastName}!
+              </h1>
+              <button className="edit-button" onClick={handleEdit}>Edit Name</button>
+            </>
+          )}
+        </div>
+
+        {/* Accounts sections ici, inchangées */}
+      </main>
+
+      <footer className="footer">
+        <p className="footer-text">Copyright 2020 Argent Bank</p>
+      </footer>
+    </>
+  );
+}
+
+export default ProfilePage;

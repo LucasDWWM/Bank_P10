@@ -14,7 +14,7 @@ function LoginPage() {
     e.preventDefault();
     const result = await dispatch(loginUser({ email, password }));
     if (result.success) {
-      navigate("/user"); // Redirige vers la page utilisateur
+      navigate("/profile"); // Redirige vers la page de profil
     } else {
       alert("Login failed: " + result.message);
     }

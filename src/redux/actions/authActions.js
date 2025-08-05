@@ -1,19 +1,54 @@
 import axios from "axios";
+import { loginSuccess, logout } from "../reducers/authReducer";
 
-// Action pour l'authentification de l'utilisateur
+// Connexion de l'utilisateur
 export const loginUser = (credentials) => async (dispatch) => {
-    // Envoie une requête POST à l'API pour authentifier l'utilisateur
   try {
-    // Remplacez l'URL par celle de mon API
     const response = await axios.post("http://localhost:3001/api/v1/user/login", credentials);
-    // Si la requête réussit, on récupère le token et on le stocke dans le state
     const token = response.data.body.token;
 
-    // Dispatch de l'action pour mettre à jour le state avec le token
-    dispatch({ type: "LOGIN_SUCCESS", payload: token });
+    // Stockage du token dans le localStorage
+    const profileRes = await axios.get("http://localhost:3001/api/v1/user/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const user = profileRes.data.body;
+
+    dispatch(loginSuccess({ token, user })); // ici on utilise l'action du slice 
     return { success: true };
-  } catch (error) { // Si la requête échoue, on gère l'erreur
-    dispatch({ type: "LOGIN_FAILURE" });
-    return { success: false, message: error.response?.data?.message || "Login error" };
+  } catch (error) {
+    console.error("Login error:", error);
+    return {
+      success: false,
+      message: error.response?.data?.message || "Login error",
+    };
+  }
+};
+
+// Déconnexion de l'utilisateur
+export const logoutUser = () => (dispatch) => {
+  localStorage.removeItem("token");
+  dispatch(logout()); // ici on fait appel à l'action du slice
+};
+
+// Mise à jour du username
+export const updateUsername = (newUsername) => async (dispatch, getState) => {
+  try {
+    const token = getState().auth.token;
+
+    const response = await axios.put(
+      "http://localhost:3001/api/v1/user/profile",
+      { userName: newUsername },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    const updatedUser = response.data.body;
+
+    // On met à jour uniquement user, on garde le token tel quel
+    dispatch(loginSuccess({ token, user: updatedUser }));
+  } catch (error) {
+    console.error("Failed to update username", error);
   }
 };
