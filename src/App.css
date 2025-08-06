@@ -259,6 +259,24 @@ body {
   padding: 10px;
 }
 
+.edit-user-form {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.button-wrapper {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancel-button {
+  background-color: #aaa;
+  color: white;
+}
+
+
 .header {
   color: #fff;
   margin-bottom: 2rem;

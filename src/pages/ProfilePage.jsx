@@ -28,7 +28,7 @@ function ProfilePage() {
     <>
       <nav className="main-nav">
         <Link className="main-nav-logo" to="/">
-          <img className="main-nav-logo-image" src="./img/argentBankLogo.png" alt="Argent Bank Logo" />
+          <img className="main-nav-logo-image" src="./argentBankLogo.png" alt="Argent Bank Logo" />
           <h1 className="sr-only">Argent Bank</h1>
         </Link>
         <div>
@@ -47,11 +47,35 @@ function ProfilePage() {
         <div className="header">
           {editMode ? (
             <>
-              <input value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
-              <button onClick={handleSave}>Save</button>
-              <button onClick={() => setEditMode(false)}>Cancel</button>
+              <h1>Edit user info</h1>
+              <form className="edit-user-form">
+                <div className="input-wrapper">
+                  <label>User name:</label>
+                  <input
+                    type="text"
+                    value={newUsername}
+                    onChange={(e) => setNewUsername(e.target.value)}
+                  />
+                </div>
+                <div className="input-wrapper">
+                  <label>First name:</label>
+                  <input type="text" value={user?.firstName} disabled />
+                </div>
+                <div className="input-wrapper">
+                  <label>Last name:</label>
+                  <input type="text" value={user?.lastName} disabled />
+                </div>
+                <div className="button-wrapper">
+                  <button className="edit-button" type="button" onClick={handleSave}>
+                    Save
+                  </button>
+                  <button className="edit-button cancel-button" type="button" onClick={() => setEditMode(false)}>
+                    Cancel
+                  </button>
+                </div>
+              </form>
             </>
-          ) : (
+            ) : (
             <>
               <h1>
                 Welcome back<br />{user?.firstName} {user?.lastName}!
