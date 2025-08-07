@@ -14,6 +14,8 @@ export const loginUser = (credentials) => async (dispatch) => {
       },
     });
 
+    localStorage.setItem("token", token);
+
     const user = profileRes.data.body;
 
     dispatch(loginSuccess({ token, user })); // ici on utilise l'action du slice 

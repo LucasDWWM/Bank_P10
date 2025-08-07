@@ -1,9 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// État initial
+// token récupéré depuis le localStorage
+// Il est utilisé pour vérifier si l'utilisateur est authentifié
+const token = localStorage.getItem("token");
+
+// Etat initial de l'authentification
 const initialState = {
-  isAuthenticated: false,
-  token: null,
+  // Le !! est utilisé pour convertir le token en booléen / isAuthenticated sera true si un token est présent, sinon false
+  isAuthenticated: !!token,
+  token,
   user: null,
 };
 
