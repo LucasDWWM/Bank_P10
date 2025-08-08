@@ -37,7 +37,7 @@ function ProfilePage() {
             {user?.userName}
           </Link>
           <button className="main-nav-item" onClick={handleLogout}>
-            <i className="fa fa-sign-out"></i>
+            <i className="fa fa-user-circle"></i>
             Sign Out
           </button>
         </div>
@@ -92,7 +92,9 @@ function ProfilePage() {
               <p className="account-amount-description">Available Balance</p>
             </div>
             <div className="account-content-wrapper cta">
-              <button className="transaction-button">View transactions</button>
+              <button className="transaction-button" onClick={() => navigate("/transactions")}>
+                View transactions
+              </button>
             </div>
           </section>
           <section className="account">
@@ -102,7 +104,9 @@ function ProfilePage() {
               <p className="account-amount-description">Available Balance</p>
             </div>
             <div className="account-content-wrapper cta">
-              <button className="transaction-button">View transactions</button>
+              <button className="transaction-button" onClick={() => navigate("/transactions")}>
+                View transactions
+              </button>
             </div>
           </section>
           <section className="account">
@@ -112,7 +116,9 @@ function ProfilePage() {
               <p className="account-amount-description">Current Balance</p>
             </div>
             <div className="account-content-wrapper cta">
-              <button className="transaction-button">View transactions</button>
+              <button className="transaction-button" onClick={() => navigate("/transactions")}>
+                View transactions
+              </button>
             </div>
           </section>
       </main>

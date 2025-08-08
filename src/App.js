@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage  from "./pages/ProfilePage";
 import PrivateRoute from "./PrivateRoute";
+import TransactionsPage from "./pages/TransactionsPage";
 import './App.css';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+        <Route path="/transactions" element={<PrivateRoute><TransactionsPage /></PrivateRoute>} />
       </Routes>
     </Router>
   );
