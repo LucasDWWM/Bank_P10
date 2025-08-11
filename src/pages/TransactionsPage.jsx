@@ -39,6 +39,7 @@ function TransactionsPage() {
   useEffect(() => {
     if (!accountId) return; // pas encore d'ID de compte
 
+    // Charger les transactions
     const fetchTransactions = async () => {
       try {
         const res = await fetch(
@@ -66,6 +67,7 @@ function TransactionsPage() {
   // Changement de catégorie
   const handleCategoryChange = (id, newCategory) => {
     setTransactions((prev) =>
+      // Met à jour la catégorie de la transaction correspondante
       prev.map((tx) =>
         tx.transactionId === id ? { ...tx, category: newCategory } : tx
       )
